@@ -1,5 +1,7 @@
 package com.DAT250.exp2;
 
+import java.time.Instant;
+
 public class Poll {
     private String question;
     private Instant publishedAt;
