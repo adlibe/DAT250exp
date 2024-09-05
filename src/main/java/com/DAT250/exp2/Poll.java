@@ -13,19 +13,19 @@ public class Poll {
         this.question = question;
     }
 
-    public Instant setPublishedAt () {
+    public Instant getPublishedAt () {
         return publishedAt;
     }
 
-    public void getPublishedAt (Instant publishedAt) {
+    public void setPublishedAt (Instant publishedAt) {
         this.publishedAt = publishedAt;
     }
 
-    public Instant setValidUntil () {
+    public Instant getValidUntil () {
         return validUntil;
     }
 
-    public void getValidUntil (Instant validUntil) {
+    public void setValidUntil (Instant validUntil) {
         this.validUntil = validUntil;
     }
 }
