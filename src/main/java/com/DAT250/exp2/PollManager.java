@@ -10,6 +10,7 @@ public class PollManager {
     private final Map<String, User> users = new HashMap<>();
     private final Map<String, Poll> polls = new HashMap<>();
 
+    //Users
     public Map<String, User> getUsers() {
         return users;
     }
@@ -22,6 +23,7 @@ public class PollManager {
         return this.users.remove(username) != null;
     }
 
+    //Polls
     public Map<String, Poll> getPolls() {
         return polls;
     }
