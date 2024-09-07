@@ -29,6 +29,15 @@ public class UserController {
     public void deleteUser(@PathVariable String username) {
         pollManager.deleteUser(username);
     }
+
+    @PutMapping("/{username}")
+    public void updateUser(@PathVariable String username, @RequestBody User updatedUser) {
+        User newUser = pollManager.getUsers().get(username);
+        pollManager.deleteUser(username);
+        newUser.setUsername(updatedUser.getUsername());
+        newUser.setEmail(updatedUser.getEmail());
+        pollManager.addUser(newUser);
+    }
 }
 
 
