@@ -17,4 +17,16 @@ public class PollManager {
     public void addUser(User user) {
         users.put(user.getUsername(), user);
     }
+
+    public boolean deleteUser(String username) {
+        return this.users.remove(username) != null;
+    }
+
+    public Map<String, Poll> getPolls() {
+        return polls;
+    }
+
+    public void addPoll(Poll poll) {
+        polls.put(poll.getQuestion(), poll);
+    }
 }

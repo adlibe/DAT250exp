@@ -1,9 +1,7 @@
 package com.DAT250.exp2;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -25,6 +23,11 @@ public class UserController {
     @GetMapping
     public Collection<User> getUsers(String name) {
         return pollManager.getUsers().values();
+    }
+
+    @DeleteMapping("/{username}")
+    public void deleteUser(@PathVariable String username) {
+        pollManager.deleteUser(username);
     }
 }
 
