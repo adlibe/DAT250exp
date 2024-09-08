@@ -1,11 +1,20 @@
-package com.DAT250.exp2;
+package com.DAT250.exp2.beans;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class Poll {
-    private String question;
     private Instant publishedAt;
     private Instant validUntil;
+    private String pollId;
+    private String question;
+    private List<VoteOption> voteOptions = new ArrayList<>();
+
+    public Poll() {
+        this.pollId = UUID.randomUUID().toString();
+    }
 
     public String getQuestion () {
         return question;
@@ -30,6 +39,19 @@ public class Poll {
     public void setValidUntil (Instant validUntil) {
         this.validUntil = validUntil;
     }
+
+    public String getPollId() {
+        return pollId;
+    }
+
+    public List<VoteOption> getVoteOptions() {
+        return voteOptions;
+    }
+
+    public void setVoteOptions(List<VoteOption> voteOptions) {
+        this.voteOptions = voteOptions;
+    }
+
 }
 
 

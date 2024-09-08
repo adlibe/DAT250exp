@@ -1,4 +1,4 @@
-package com.DAT250.exp2;
+package com.DAT250.exp2.beans;
 
 public class User {
     private String username;
@@ -19,6 +19,5 @@ public class User {
     public void setEmail(String email){
         this.email = email;
     }
-
 
 }

@@ -1,5 +1,7 @@
-package com.DAT250.exp2;
+package com.DAT250.exp2.controllers;
 
+import com.DAT250.exp2.PollManager;
+import com.DAT250.exp2.beans.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +23,7 @@ public class UserController {
     }
 
     @GetMapping
-    public Collection<User> getUsers(String name) {
+    public Collection<User> getUsers() {
         return pollManager.getUsers().values();
     }
 
@@ -32,12 +34,10 @@ public class UserController {
 
     @PutMapping("/{username}")
     public void updateUser(@PathVariable String username, @RequestBody User updatedUser) {
-        User newUser = pollManager.getUsers().get(username);
-        pollManager.deleteUser(username);
-        newUser.setUsername(updatedUser.getUsername());
-        newUser.setEmail(updatedUser.getEmail());
-        pollManager.addUser(newUser);
+        User existingUser = pollManager.getUsers().get(username);
+        existingUser.setUsername(updatedUser.getUsername());
+        existingUser.setEmail(updatedUser.getEmail());
+        }
     }
-}
 
 

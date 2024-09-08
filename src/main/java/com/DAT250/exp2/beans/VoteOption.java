@@ -1,4 +1,4 @@
-package com.DAT250.exp2;
+package com.DAT250.exp2.beans;
 
 public class VoteOption {
     private String caption;
