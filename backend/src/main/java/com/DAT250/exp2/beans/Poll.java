@@ -14,6 +14,7 @@ public class Poll {
 
     public Poll() {
         this.pollId = UUID.randomUUID().toString();
+        this.publishedAt = Instant.now();
     }
 
     public String getQuestion () {
