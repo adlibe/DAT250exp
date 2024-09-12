@@ -10,6 +10,7 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping("/voteoptions")
+@CrossOrigin
 public class VoteOptionController {
     private final PollManager pollManager;
 
