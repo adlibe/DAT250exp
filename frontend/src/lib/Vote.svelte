@@ -5,7 +5,7 @@
     // Function to make votes
     function submitVote() {
         if (selectedOption) {
-            alert(`You voted: ${selectedOption}`);
+            alert(`You voted: ${selectedOption.caption}`);
         } else {
             alert('Select an option before submitting.');
         }
@@ -21,12 +21,13 @@
             <input
                     type="radio"
                     name="vote"
-                    value={option}
+                    value={option.caption}
                     bind:group={selectedOption} />
-            <label>{option}</label>
+            <label>{option.caption}</label>
         </li>
     {/each}
 </ul>
+
 
 <!-- Button to submit the selected vote -->
 <button on:click={submitVote}>Submit Vote</button>

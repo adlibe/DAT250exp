@@ -1,83 +1,68 @@
 <script>
-    import { v4 as uuidv4 } from 'uuid';
-
     export let addPoll;
 
-    // Poll fields
     let question = '';
     let validUntil = '';
     let voteOptions = [];
-    let voteOptionInput = '';
+    let voteOption = '';
 
-    // Function to create new polls
-    function createPoll() {
-        const newPoll = {
-            pollId: uuidv4(),
-            question,
-            publishedAt: new Date().toISOString(),
-            validUntil: new Date(validUntil).toISOString(),
-            voteOptions: [...voteOptions]
-        };
-        addPoll(newPoll);
-
-        // Reset fields
-        question = '';
-        validUntil = '';
-        voteOptions = [];
+    // Add a vote option
+    function addOption() {
+        if (voteOption.trim()) {
+            voteOptions = [...voteOptions, { caption: voteOption }];
+            voteOption = ''
+        }
     }
 
-    // Function to add vote options
-    function addVoteOption() {
-        if (voteOptionInput) {
-            voteOptions = [...voteOptions, voteOptionInput];
-            voteOptionInput = '';
-        }
+    // Create a new poll by posting it to the backend
+    async function createPoll() {
+        const poll = {
+            question: question,
+            validUntil: new Date(validUntil).toISOString(),
+            voteOptions: voteOptions,
+        };
+
+        addPoll(poll);
     }
 </script>
 
-<!-- Poll creation page -->
-<h2>Create a Poll</h2>
 <div>
-    <label>Question: </label>
-    <input type="text" bind:value={question} placeholder="Enter poll question"/>
-</div>
+    <h2>Create a Poll</h2>
 
-<div>
-    <label>Valid Until: </label>
-    <input type="datetime-local" bind:value={validUntil}/>
-</div>
+    <input bind:value={question} placeholder="Enter poll question" />
+    <input type="date" bind:value={validUntil} />
+    <input bind:value={voteOption} placeholder="Add a vote option" />
+    <button on:click={addOption}>Add Option</button>
 
-<!-- Vote options -->
-<div>
-    <label>Vote Option: </label>
-    <input type="text" bind:value={voteOptionInput} placeholder="Add a vote option"/>
-    <button type="button" on:click={addVoteOption}>Add Option</button>
-</div>
-
-<!-- Display all of the vote options -->
-{#if voteOptions.length > 0}
-    <h3>Vote Options:</h3>
     <ul>
         {#each voteOptions as option}
-            <li>{option}</li>
+            <li>{option.caption}</li>
         {/each}
     </ul>
-{/if}
 
-<!-- Button to create poll -->
-<button on:click={createPoll}>Create Poll</button>
+    <button on:click={createPoll}>Create Poll</button>
+</div>
 
 <style>
+    div {
+        margin: 20px;
+    }
+
     input {
-        margin: 5px 0;
+        margin: 5px;
         padding: 8px;
-        font-size: 1rem;
+        font-size: 16px;
     }
 
     button {
-        margin: 10px 0;
+        margin: 5px;
         padding: 10px;
-        font-size: 1rem;
+        font-size: 16px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
     }
 
     ul {

@@ -11,23 +11,88 @@
   let users = [];
   let polls = [];
 
+  // Fetch users from backend
+  async function fetchUsers() {
+    const response = await fetch('http://localhost:8080/users');
+    if (response.ok) {
+      const data = await response.json();
+      users = data;
+    } else {
+      console.error('Failed to fetch users');
+    }
+  }
+
+  // Fetch polls from backend
+  async function fetchPolls() {
+    const response = await fetch('http://localhost:8080/polls');
+    if (response.ok) {
+      const data = await response.json();
+      polls = data;
+    } else {
+      console.error('Failed to fetch polls');
+    }
+  }
+
+
   function togglePollForm() { showPollForm = !showPollForm; }
-  function toggleUsers() { showUsers = !showUsers; }
-  function togglePolls() {
+  function toggleUsers() {
+    showUsers = !showUsers;
+    if (showUsers) {
+      fetchUsers();
+    }
+  }
+  async function togglePolls() {
     showPolls = !showPolls;
-    if (!showPolls) {
+    if (showPolls) {
+      try {
+        const response = await fetch('http://localhost:8080/polls');
+        const data = await response.json();
+        polls = data;
+      } catch (error) {
+        console.error('Error fetching polls:', error);
+      }
+    } else {
       showVoteOnPoll = false;
     }
   }
 
-  function addPoll(poll) {
-    polls = [...polls, poll];
-    showPollForm = false;
+
+  async function addPoll(poll) {
+    const response = await fetch('http://localhost:8080/polls', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(poll)
+    });
+
+    if (response.ok) {
+      fetchPolls();
+      showPollForm = false;
+    } else {
+      console.error('Failed to add poll');
+    }
   }
 
-  function addUser(user) {
-    users = [...users, user];
+
+
+
+  async function addUser(user) {
+    const response = await fetch('http://localhost:8080/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    });
+
+    if (response.ok) {
+      fetchUsers();
+    } else {
+      console.error('Failed to add user');
+    }
   }
+
 
   function selectPoll(poll) {
     selectedPoll = poll;
